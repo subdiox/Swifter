@@ -64,7 +64,8 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
     var request: URLRequest?
     var dataTask: URLSessionDataTask?
 
-    var headers: Dictionary<String, String> = [:]
+    var headers: Dictionary<String, String?> = [:]
+    
     var parameters: Dictionary<String, Any>
     var encodeParameters: Bool
 
@@ -159,6 +160,23 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
             }
         }
 
+        /*headers = [
+            "User-Agent": "Twitter-iPhone/7.12 iOS/10.2 (Apple;iPhone8,1;;;;;1)",
+            "X-Twitter-Client-DeviceID": "3350E88E-ED66-4D46-8B28-D82EA4A6397D",
+            "X-Twitter-Client-Version": "7.12",
+            "X-Client-UUID": "9BC12790-65C5-4041-99F6-D5404264FD91",
+            "X-Twitter-Client-Language": "ja",
+            "X-Twitter-Active-User": "yes",
+            "X-B3-TraceId": "a8de95d837738a95",
+            "X-Twitter-API-Version": "5",
+            "kdt": "7LvQLcgRJWZvVz6F14Krd6vpTAUXZZpEnJl3tuhX",
+            "Geolocation": "1511150226259;lat=35.6608001;lon=139.6860703;hacc=65.00;alt=43.18;vacc=10.00;src=I",
+            "Cookie": nil
+        ]*/
+        for (key, value) in headers {
+            self.request!.setValue(value, forHTTPHeaderField: key)
+        }
+        
         DispatchQueue.main.async {
             let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
             self.dataTask = session.dataTask(with: self.request!)
@@ -213,6 +231,7 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
             return
         }
         let responseString = String(data: responseData, encoding: dataEncoding)!
+        print(responseString)
         let errorCode = HTTPRequest.responseErrorCode(for: responseData) ?? 0
         let localizedDescription = HTTPRequest.description(for: response.statusCode, response: responseString)
         

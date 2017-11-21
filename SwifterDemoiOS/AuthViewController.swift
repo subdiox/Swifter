@@ -34,11 +34,13 @@ class AuthViewController: UIViewController, SFSafariViewControllerDelegate {
     var swifter: Swifter
 
     // Default to using the iOS account framework for handling twitter auth
-    let useACAccount = true
+    let useACAccount = false
 
     required init?(coder aDecoder: NSCoder) {
-        self.swifter = Swifter(consumerKey: "IQKbtAYlXLripLGPWd0HUA", consumerSecret: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU")
+        //self.swifter = Swifter(consumerKey: "TgHNMa7WZE7Cxi1JbkAMQ", consumerSecret: "SHy9mBMBPNj3Y17et9BF4g5XeqS4y3vkeW24PttDcY")
         //self.swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
+        
+        self.swifter = Swifter(consumerKey: "IQKbtAYlXLripLGPWd0HUA", consumerSecret: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU")
         super.init(coder: aDecoder)
     }
 
@@ -70,8 +72,8 @@ class AuthViewController: UIViewController, SFSafariViewControllerDelegate {
                 }
             }
         } else {
-            let url = URL(string: "swifter://success")!
-            swifter.authorize(with: url, presentFrom: self, success: { _, _ in
+            //let url = URL(string: "swifter://success")!
+            swifter.authorizePIN(username: "wotbmx", password: "Fyjw3954%", success: { _, _ in
                 self.fetchTwitterHomeStream()
             }, failure: failureHandler)
         }
@@ -81,12 +83,28 @@ class AuthViewController: UIViewController, SFSafariViewControllerDelegate {
         let failureHandler: (Error) -> Void = { error in
             self.alert(title: "Error", message: error.localizedDescription)
         }
-        self.swifter.createCards(cards: ["aa", "bb", "cc", "dd"], durationMinutes: 1440, success: { json in
+        self.swifter.getHomeTimeline(count: 20, success: { json in
+            let tweets = json.array!
+            let id = tweets[10]["id_str"].string!
+            print(tweets[10]["text"].string!)
+            self.swifter.getTweetFavoritedBy(forID: id, cursor: "-1", success: { json2, _, _ in
+                print(json2)
+            })
+        })
+        
+        
+        
+        /*self.swifter.postTweet(status: status, success: { status in
+            print(status)
+        }, failure: { error in
+            print(error)
+        })*/
+        /*self.swifter.createCards(cards: ["aaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbb"], durationMinutes: 10080, success: { json in
             let cardUri = json["card_uri"].string!
-            self.swifter.postCards(status: "Test Test", cardUri: cardUri, success: { json2 in
+            self.swifter.postCards(status: "投票文字数テスト", cardUri: cardUri, success: { json2 in
                 print(json2)
             }, failure: failureHandler)
-        }, failure: failureHandler)
+ }, failure: failureHandler)*/
         /*
         self.swifter.getHomeTimeline(count: 20, success: { json in
             // Successfully fetched timeline, so lets create and push the table view

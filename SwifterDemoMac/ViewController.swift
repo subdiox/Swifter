@@ -29,7 +29,7 @@ import SwifterMac
 
 class ViewController: NSViewController {
 
-    let useACAccount = false
+    let useACAccount = true
     @objc dynamic var tweets: [Tweet] = []
                             
     override func viewDidLoad() {

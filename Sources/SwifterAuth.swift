@@ -135,6 +135,14 @@ public extension Swifter {
             }, failure: failure)
     }
     
+    public func authorizePIN(username: String, password: String, success: TokenSuccessHandler?, failure: FailureHandler? = nil) {
+        self.postOAuthAccessToken(username: username, password: password, success: { token, response in
+            let accessToken = token!
+            self.client.credential = Credential(accessToken: accessToken)
+            success?(accessToken, response)
+        }, failure: failure)
+    }
+    
     public func postOAuth2BearerToken(success: JSONSuccessHandler?, failure: FailureHandler?) {
         let path = "oauth2/token"
         
@@ -187,4 +195,23 @@ public extension Swifter {
         }
     }
     
+    public func postOAuthAccessToken(username: String, password: String, success: @escaping TokenSuccessHandler, failure: FailureHandler?) {
+        let path = "oauth/access_token"
+        
+        let parameters: [String: Any] = [
+            "format": "json",
+            "send_error_codes": true,
+            "x_auth_mode": "client_auth",
+            "x_auth_username": username,
+            "x_auth_password": password
+        ]
+        
+        self.client.post(path, baseURL: .oauth, parameters: parameters, uploadProgress: nil, downloadProgress: nil, success: { data, response in
+            
+            let responseString = String(data: data, encoding: .utf8)!
+            let accessToken = Credential.OAuthAccessToken(queryString: responseString)
+            success(accessToken, response)
+            
+        }, failure: failure)
+    }
 }

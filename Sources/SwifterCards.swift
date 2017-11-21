@@ -1,5 +1,5 @@
 //
-//  SwifterCaps.swift
+//  SwifterCards.swift
 //  Swifter
 //
 //  Created by subdiox on 2017/11/20.

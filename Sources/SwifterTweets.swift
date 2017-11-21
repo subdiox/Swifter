@@ -295,7 +295,7 @@ public extension Swifter {
         Returns a collection of users who retweeted the specified tweet.
      **/
     
-    public func getTweetRetweetedBy(forID id: String, cursor: String? = nil, includeEntities: Bool? = true, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
+    public func getTweetRetweetedBy(forID id: String, cursor: String? = nil, includeEntities: Int? = 1, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "statuses/retweeted_by.json"
         
         var parameters = Dictionary<String, Any>()
@@ -320,11 +320,12 @@ public extension Swifter {
      Returns a collection of users who favorited the specified tweet.
      **/
     
-    public func getTweetFavoritedBy(forID id: String, cursor: String? = nil, includeEntities: Bool? = true, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
+    public func getTweetFavoritedBy(forID id: String, cursor: String? = nil, includeEntities: Int? = 1, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "statuses/favorited_by.json"
         
         var parameters = Dictionary<String, Any>()
         parameters["id"] = id
+        parameters["ext"] = "mediaColor"
         parameters["cursor"] ??= cursor
         parameters["include_entities"] ??= includeEntities
         parameters["include_profile_interstitial_type"] ??= includeProfileInterstitialType
