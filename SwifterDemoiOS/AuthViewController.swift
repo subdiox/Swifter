@@ -34,10 +34,11 @@ class AuthViewController: UIViewController, SFSafariViewControllerDelegate {
     var swifter: Swifter
 
     // Default to using the iOS account framework for handling twitter auth
-    let useACAccount = false
+    let useACAccount = true
 
     required init?(coder aDecoder: NSCoder) {
         self.swifter = Swifter(consumerKey: "IQKbtAYlXLripLGPWd0HUA", consumerSecret: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU")
+        //self.swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
         super.init(coder: aDecoder)
     }
 
@@ -80,10 +81,11 @@ class AuthViewController: UIViewController, SFSafariViewControllerDelegate {
         let failureHandler: (Error) -> Void = { error in
             self.alert(title: "Error", message: error.localizedDescription)
         }
-        print("start posting...")
-        self.swifter.postCaps(cards: ["aa", "bb", "cc", "dd"], durationMinutes: 1440, success: { json, response in
-            print("success")
-            print(json["card_uri"])
+        self.swifter.createCards(cards: ["aa", "bb", "cc", "dd"], durationMinutes: 1440, success: { json in
+            let cardUri = json["card_uri"].string!
+            self.swifter.postCards(status: "Test Test", cardUri: cardUri, success: { json2 in
+                print(json2)
+            }, failure: failureHandler)
         }, failure: failureHandler)
         /*
         self.swifter.getHomeTimeline(count: 20, success: { json in

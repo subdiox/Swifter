@@ -13,14 +13,14 @@ public extension Swifter {
     /**
      POST    cards/create
     
-     Create vote (caps) and tweet it.
+     Create cards.
      
      (Private API)
      */
-    public func postCaps(cards: [String], durationMinutes: Int = 1440, success: JSONSuccessHandler? = nil, failure: FailureHandler? = nil) {
+    public func createCards(cards: [String], durationMinutes: Int = 1440, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path: String = "cards/create.json"
         
-        var parameters = Dictionary<String, Dictionary<String, Any>>()
+        var parameters = Dictionary<String, Any>()
         var cardData = Dictionary<String, Any>()
         cardData["twitter:api:api:endpoint"] = "1"
         cardData["twitter:long:duration_minutes"] = durationMinutes
@@ -30,7 +30,37 @@ public extension Swifter {
         }
         parameters["card_data"] = cardData
         
-        self.jsonRequest(path: path, baseURL: .caps, method: .POST, parameters: parameters, success: success, failure: failure)
+        self.postJSON(path: path, baseURL: .caps, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
+    }
+    
+    public func postCards(status: String, cardUri: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
+        let path: String = "statuses/update.json"
+        
+        var parameters = Dictionary<String, Any>()
+        parameters["auto_populate_reply_metadata"] = true
+        parameters["batch_mode"] = "off"
+        parameters["card_uri"] = cardUri
+        parameters["cards_platform"] = "iPhone-13"
+        parameters["contributor_details"] = 1
+        parameters["enable_dm_commands"] = false
+        parameters["ext"] = "altText,focusRects,info360,mediaColor,mediaRestrictions,mediaStats,stickerInfo"
+        parameters["include_cards"] = 1
+        parameters["include_carousels"] = 1
+        parameters["include_entities"] = 1
+        parameters["include_ext_media_color"] = true
+        parameters["include_media_features"] = true
+        parameters["include_my_retweet"] = 1
+        parameters["include_profile_interstitial_type"] = true
+        parameters["include_profile_location"] = true
+        parameters["include_reply_count"] = 1
+        parameters["include_user_entities"] = true
+        parameters["include_user_hashtag_entities"] = true
+        parameters["include_user_mention_entities"] = true
+        parameters["include_user_symbol_entities"] = true
+        parameters["status"] = status
+        parameters["tweet_mode"] = "extended"
+
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
     }
     
 }

@@ -106,7 +106,7 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
             self.request!.httpMethod = self.HTTPMethod.rawValue
             self.request!.timeoutInterval = self.timeoutInterval
             self.request!.httpShouldHandleCookies = self.HTTPShouldHandleCookies
-
+            
             for (key, value) in headers {
                 self.request!.setValue(value, forHTTPHeaderField: key)
             }
