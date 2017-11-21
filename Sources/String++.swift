@@ -49,7 +49,11 @@ extension String {
         if !encodeAll {
             allowedCharacterSet.insert(charactersIn: "[]")
         }
-        return self.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!
+        return self.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!.replaceBracket()
+    }
+    
+    func replaceBracket() -> String {
+        return self.replacingOccurrences(of: "[", with: "{").replacingOccurrences(of: "]", with: "}")
     }
 
     var queryStringParameters: Dictionary<String, String> {

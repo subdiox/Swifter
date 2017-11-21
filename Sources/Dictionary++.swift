@@ -62,7 +62,7 @@ extension Dictionary {
     func stringifiedDictionary() -> Dictionary<String, String> {
         var dict = [String: String]()
         for (key, value) in self {
-            dict[String(describing: key)] = String(describing: value).replacingOccurrences(of: "[", with: "{").replacingOccurrences(of: "]", with: "}")
+            dict[String(describing: key)] = String(describing: value)
         }
         return dict
     }

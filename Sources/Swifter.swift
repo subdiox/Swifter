@@ -57,7 +57,6 @@ public enum TwitterURL {
         case .caps:         return URL(string: "https://caps.twitter.com/v2/")!
         }
     }
-    
 }
 
 // MARK: - Tweet Mode

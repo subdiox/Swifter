@@ -11,6 +11,16 @@ import Foundation
 public extension Swifter {
     
     /**
+        Convenience function for creating cards and tweet it.
+     **/
+    public func createAndPostCards(status: String, cards: [String], durationMinutes: Int = 1440, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
+        self.createCards(cards: cards, durationMinutes: durationMinutes, success: { json in
+            let cardUri = json["card_uri"].string!
+            self.postCards(status: status, cardUri: cardUri, success: { json in success?(json) }, failure: failure)
+        }, failure: failure)
+    }
+    
+    /**
         POST    cards/create (Private API)
     
         Create cards.

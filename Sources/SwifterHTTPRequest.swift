@@ -160,19 +160,21 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
             }
         }
 
-        /*headers = [
+        headers = [
             "User-Agent": "Twitter-iPhone/7.12 iOS/10.2 (Apple;iPhone8,1;;;;;1)",
-            "X-Twitter-Client-DeviceID": "3350E88E-ED66-4D46-8B28-D82EA4A6397D",
+            "X-Twitter-Client": "Twitter-iPhone",
             "X-Twitter-Client-Version": "7.12",
-            "X-Client-UUID": "9BC12790-65C5-4041-99F6-D5404264FD91",
             "X-Twitter-Client-Language": "ja",
-            "X-Twitter-Active-User": "yes",
-            "X-B3-TraceId": "a8de95d837738a95",
+            "X-Twitter-Active-User": "no",
             "X-Twitter-API-Version": "5",
-            "kdt": "7LvQLcgRJWZvVz6F14Krd6vpTAUXZZpEnJl3tuhX",
-            "Geolocation": "1511150226259;lat=35.6608001;lon=139.6860703;hacc=65.00;alt=43.18;vacc=10.00;src=I",
-            "Cookie": nil
-        ]*/
+            "Timezone": "Asia/Tokyo"
+//            "Geolocation": "1511260608868;lat=35.7308678;lon=139.7780285;hacc=165.00;alt=12.00;vacc=10.00;src=I",
+//            "kdt": "7LvQLcgRJWZvVz6F14Krd6vpTAUXZZpEnJl3tuhX",
+//            "X-B3-TraceId": "8de3ff2cf585c8f0",
+//            "X-Twitter-Client-DeviceID": "3350E88E-ED66-4D46-8B28-D82EA4A6397D",
+//            "X-Twitter-Polling": "true",
+//            "X-Client-UUID": "9BC12790-65C5-4041-99F6-D5404264FD91"
+        ]
         for (key, value) in headers {
             self.request!.setValue(value, forHTTPHeaderField: key)
         }
