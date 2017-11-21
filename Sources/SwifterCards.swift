@@ -11,12 +11,10 @@ import Foundation
 public extension Swifter {
     
     /**
-     POST    cards/create
+        POST    cards/create (Private API)
     
-     Create cards.
-     
-     (Private API)
-     */
+        Create cards.
+     **/
     public func createCards(cards: [String], durationMinutes: Int = 1440, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path: String = "cards/create.json"
         
@@ -33,6 +31,11 @@ public extension Swifter {
         self.postJSON(path: path, baseURL: .caps, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
     }
     
+    /**
+        POST    statuses/update.json (Private API)
+ 
+        Tweet with created cards.
+     **/
     public func postCards(status: String, cardUri: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path: String = "statuses/update.json"
         

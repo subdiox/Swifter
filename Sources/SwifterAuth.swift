@@ -37,9 +37,9 @@ public extension Swifter {
     public typealias TokenSuccessHandler = (Credential.OAuthAccessToken?, URLResponse) -> Void
     
     /**
-     Begin Authorization with a Callback URL.
-     - OS X only
-     */
+        Begin Authorization with a Callback URL.
+        - OS X only
+     **/
     #if os(macOS)
     public func authorize(with callbackURL: URL, success: TokenSuccessHandler?, failure: FailureHandler? = nil) {
         self.postOAuthRequestToken(with: callbackURL, success: { token, response in
@@ -65,13 +65,11 @@ public extension Swifter {
     #endif
     
     /**
-     Begin Authorization with a Callback URL
+        Begin Authorization with a Callback URL
      
-     - Parameter presentFromViewController: The viewController used to present the SFSafariViewController.
-     The UIViewController must inherit SFSafariViewControllerDelegate
-     
-     */
-    
+        - Parameter presentFromViewController: The viewController used to present the SFSafariViewController.
+        The UIViewController must inherit SFSafariViewControllerDelegate
+     **/
     #if os(iOS)
     public func authorize(with callbackURL: URL, presentFrom presentingViewController: UIViewController? , success: TokenSuccessHandler?, failure: FailureHandler? = nil) {
         self.postOAuthRequestToken(with: callbackURL, success: { token, response in
@@ -214,4 +212,5 @@ public extension Swifter {
             
         }, failure: failure)
     }
+    
 }

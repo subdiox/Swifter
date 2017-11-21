@@ -28,14 +28,12 @@ import Foundation
 public extension Swifter {
 
     /**
-    GET    lists/list
+        GET    lists/list
 
-    Returns all lists the authenticating or specified user subscribes to, including their own. The user is specified using the user_id or screen_name parameters. If no user is given, the authenticating user is used.
-
-    This method used to be GET lists in version 1.0 of the API and has been renamed for consistency with other call.
-
-    A maximum of 100 results will be returned by this call. Subscribed lists are returned first, followed by owned lists. This means that if a user subscribes to 90 lists and owns 20 lists, this method returns 90 subscriptions and 10 owned lists. The reverse method returns owned lists first, so with reverse=true, 20 owned lists and 80 subscriptions would be returned. If your goal is to obtain every list a user owns or subscribes to, use GET lists/ownerships and/or GET lists/subscriptions instead.
-    */
+        Returns all lists the authenticating or specified user subscribes to, including their own. The user is specified using the user_id or screen_name parameters. If no user is given, the authenticating user is used.
+        This method used to be GET lists in version 1.0 of the API and has been renamed for consistency with other call.
+        A maximum of 100 results will be returned by this call. Subscribed lists are returned first, followed by owned lists. This means that if a user subscribes to 90 lists and owns 20 lists, this method returns 90 subscriptions and 10 owned lists. The reverse method returns owned lists first, so with reverse=true, 20 owned lists and 80 subscriptions would be returned. If your goal is to obtain every list a user owns or subscribes to, use GET lists/ownerships and/or GET lists/subscriptions instead.
+     **/
     public func getSubscribedLists(reverse: Bool?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/list.json"
 
@@ -60,10 +58,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/statuses
+        GET	lists/statuses
 
-    Returns a timeline of tweets authored by members of the specified list. Retweets are included by default. Use the include_rts=false parameter to omit retweets. Embedded Timelines is a great way to embed list timelines on your website.
-    */
+        Returns a timeline of tweets authored by members of the specified list. Retweets are included by default. Use the include_rts=false parameter to omit retweets. Embedded Timelines is a great way to embed list timelines on your website.
+     **/
     public func listTweets(for listTag: ListTag, sinceID: String?, maxID: String?, count: Int?, includeEntities: Bool?, includeRTs: Bool?, tweetMode: TweetMode = TweetMode.default, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/statuses.json"
 
@@ -83,10 +81,10 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/members/destroy
+        POST	lists/members/destroy
 
-    Removes the specified member from the list. The authenticated user must be the list's owner to remove members from the list.
-    */
+        Removes the specified member from the list. The authenticated user must be the list's owner to remove members from the list.
+     **/
     public func removeMemberFromList(for listTag: ListTag, user userTag: UserTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members/destroy.json"
 
@@ -101,10 +99,10 @@ public extension Swifter {
     }
 
     /**
-    GET    lists/memberships
+        GET    lists/memberships
 
-    Returns the lists the specified user has been added to. If user_id or screen_name are not provided the memberships for the authenticating user are returned.
-    */
+        Returns the lists the specified user has been added to. If user_id or screen_name are not provided the memberships for the authenticating user are returned.
+     **/
     public func getListMemberships(for userTag: UserTag, count: Int? = nil, cursor: String?, filterToOwnedLists: Bool?, success: CursorSuccessHandler?, failure: FailureHandler?) {
         let path = "lists/memberships.json"
 
@@ -120,10 +118,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/subscribers
+        GET	lists/subscribers
 
-    Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list.
-    */
+        Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list.
+     **/
     public func getListSubscribers(for listTag: ListTag, cursor: String?, includeEntities: Bool?, skipStatus: Bool?, success: CursorSuccessHandler?, failure: FailureHandler?) {
         let path = "lists/subscribers.json"
 
@@ -142,10 +140,10 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/subscribers/create
+        POST	lists/subscribers/create
 
-    Subscribes the authenticated user to the specified list.
-    */
+        Subscribes the authenticated user to the specified list.
+     **/
     public func subscribeToList(for listTag: ListTag, owner ownerTag: UserTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/subscribers/create.json"
 
@@ -159,10 +157,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/subscribers/show
+        GET	lists/subscribers/show
 
-    Check if the specified user is a subscriber of the specified list. Returns the user if they are subscriber.
-    */
+        Check if the specified user is a subscriber of the specified list. Returns the user if they are subscriber.
+     **/
     public func checkListSubcription(of userTag: UserTag, for listTag: ListTag, includeEntities: Bool?, skipStatus: Bool?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/subscribers/show.json"
 
@@ -179,10 +177,10 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/subscribers/destroy
+        POST	lists/subscribers/destroy
 
-    Unsubscribes the authenticated user from the specified list.
-    */
+        Unsubscribes the authenticated user from the specified list.
+     **/
     public func unsubscribeFromList(for listTag: ListTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/subscribers/destroy.json"
 
@@ -196,12 +194,11 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/members/create_all
+        POST	lists/members/create_all
 
-    Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Note that lists can't have more than 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
-
-    Please note that there can be issues with lists that rapidly remove and add memberships. Take care when using these methods such that you are not too rapidly switching between removals and adds on the same list.
-    */
+        Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Note that lists can't have more than 5,000 members, and you are limited to adding up to 100 members to a list at a time with this method.
+        Please note that there can be issues with lists that rapidly remove and add memberships. Take care when using these methods such that you are not too rapidly switching between removals and adds on the same list.
+     **/
     public func subscribeUsersToList(for listTag: ListTag, users usersTag: UsersTag, includeEntities: Bool?, skipStatus: Bool?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members/create_all.json"
 
@@ -219,10 +216,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/members/show
+        GET	lists/members/show
 
-    Check if the specified user is a member of the specified list.
-    */
+        Check if the specified user is a member of the specified list.
+     **/
     public func checkListMembership(of userTag: UserTag, for listTag: ListTag, includeEntities: Bool?, skipStatus: Bool?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members/show.json"
 
@@ -239,11 +236,10 @@ public extension Swifter {
     }
 
     /**
-    GET    lists/members
+        GET    lists/members
 
-    Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list.
-    */
-
+        Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list.
+     **/
     public func getListMembers(for listTag: ListTag, cursor: String?, includeEntities: Bool?, skipStatus: Bool?, success: CursorSuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members.json"
 
@@ -262,10 +258,10 @@ public extension Swifter {
     }
     
     /**
-    POST	lists/members/create
+        POST	lists/members/create
 
-    Add a member to a list. The authenticated user must own the list to be able to add members to it. Note that lists cannot have more than 5,000 members.
-    */
+        Add a member to a list. The authenticated user must own the list to be able to add members to it. Note that lists cannot have more than 5,000 members.
+     **/
     public func addListMember(_ userTag: UserTag, for listTag: ListTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members/create.json"
 
@@ -280,10 +276,10 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/destroy
+        POST	lists/destroy
 
-    Deletes the specified list. The authenticated user must own the list to be able to destroy it.
-    */
+        Deletes the specified list. The authenticated user must own the list to be able to destroy it.
+     **/
     public func deleteList(for listTag: ListTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/destroy.json"
 
@@ -297,10 +293,10 @@ public extension Swifter {
     }
 
     /**
-    POST	lists/update
+        POST	lists/update
 
-    Updates the specified list. The authenticated user must own the list to be able to update it.
-    */
+        Updates the specified list. The authenticated user must own the list to be able to update it.
+     **/
     public func updateList(for listTag: ListTag, name: String?, isPublic: Bool = true, description: String?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/update.json"
 
@@ -317,10 +313,10 @@ public extension Swifter {
     }
     
     /**
-    POST	lists/create
+        POST	lists/create
 
-    Creates a new list for the authenticated user. Note that you can't create more than 20 lists per account.
-    */
+        Creates a new list for the authenticated user. Note that you can't create more than 20 lists per account.
+     **/
     public func createList(named name: String, asPublicList: Bool = true, description: String?, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/create.json"
 
@@ -333,10 +329,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/show
+        GET	lists/show
 
-    Returns the specified list. Private lists will only be shown if the authenticated user owns the specified list.
-    */
+        Returns the specified list. Private lists will only be shown if the authenticated user owns the specified list.
+     **/
     public func showList(for listTag: ListTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/show.json"
 
@@ -352,10 +348,10 @@ public extension Swifter {
     }
 
     /**
-    GET	lists/subscriptions
+        GET	lists/subscriptions
 
-    Obtain a collection of the lists the specified user is subscribed to, 20 lists per page by default. Does not include the user's own lists.
-    */
+        Obtain a collection of the lists the specified user is subscribed to, 20 lists per page by default. Does not include the user's own lists.
+     **/
     public func getSubscribedList(of userTag: UserTag, count: String?, cursor: String?, success: CursorSuccessHandler?, failure: FailureHandler?) {
         let path = "lists/subscriptions.json"
 
@@ -370,12 +366,11 @@ public extension Swifter {
     }
     
     /**
-    POST	lists/members/destroy_all
+        POST	lists/members/destroy_all
 
-    Removes multiple members from a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to remove members from it. Note that lists can't have more than 500 members, and you are limited to removing up to 100 members to a list at a time with this method.
-
-    Please note that there can be issues with lists that rapidly remove and add memberships. Take care when using these methods such that you are not too rapidly switching between removals and adds on the same list.
-    */
+        Removes multiple members from a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to remove members from it. Note that lists can't have more than 500 members, and you are limited to removing up to 100 members to a list at a time with this method.
+        Please note that there can be issues with lists that rapidly remove and add memberships. Take care when using these methods such that you are not too rapidly switching between removals and adds on the same list.
+     **/
     public func removeListMembers(_ usersTag: UsersTag, for listTag: ListTag, success: SuccessHandler?, failure: FailureHandler?) {
         let path = "lists/members/destroy_all.json"
 
@@ -390,10 +385,10 @@ public extension Swifter {
     }
     
     /**
-    GET    lists/ownerships
+        GET    lists/ownerships
     
-    Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists.
-    */
+        Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists.
+     **/
     public func getOwnedLists(for userTag: UserTag, count: String?, cursor: String?, success: CursorSuccessHandler?, failure: FailureHandler?) {
         let path = "lists/ownerships.json"
         

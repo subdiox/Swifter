@@ -28,10 +28,10 @@ import Foundation
 public extension Swifter {
 
     /**
-    GET    saved_searches/list
+        GET    saved_searches/list
 
-    Returns the authenticated user's saved search queries.
-    */
+        Returns the authenticated user's saved search queries.
+     **/
     public func getSavedSearchesList(success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "saved_searches/list.json"
 
@@ -39,10 +39,10 @@ public extension Swifter {
     }
 
     /**
-    GET    saved_searches/show/:id
+        GET    saved_searches/show/:id
 
-    Retrieve the information for the saved search represented by the given id. The authenticating user must be the owner of saved search ID being requested.
-    */
+        Retrieve the information for the saved search represented by the given id. The authenticating user must be the owner of saved search ID being requested.
+     **/
     public func showSavedSearch(for id: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "saved_searches/show/\(id).json"
 
@@ -50,10 +50,10 @@ public extension Swifter {
     }
 
     /**
-    POST   saved_searches/create
+        POST   saved_searches/create
 
-    Create a new saved search for the authenticated user. A user may only have 25 saved searches.
-    */
+        Create a new saved search for the authenticated user. A user may only have 25 saved searches.
+     **/
     public func createSavedSearch(for query: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "saved_searches/create.json"
 
@@ -64,10 +64,10 @@ public extension Swifter {
     }
 
     /**
-    POST   saved_searches/destroy/:id
+        POST   saved_searches/destroy/:id
 
-    Destroys a saved search for the authenticating user. The authenticating user must be the owner of saved search id being destroyed.
-    */
+        Destroys a saved search for the authenticating user. The authenticating user must be the owner of saved search id being destroyed.
+     **/
     public func deleteSavedSearch(for id: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "saved_searches/destroy/\(id).json"
 

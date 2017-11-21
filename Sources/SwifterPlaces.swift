@@ -28,10 +28,10 @@ import Foundation
 public extension Swifter {
 
     /**
-    GET    geo/id/:place_id
+        GET    geo/id/:place_id
 
-    Returns all the information about a known place.
-    */
+        Returns all the information about a known place.
+     **/
     public func getGeoID(for placeID: String, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "geo/id/\(placeID).json"
 
@@ -39,12 +39,11 @@ public extension Swifter {
     }
 
     /**
-    GET    geo/reverse_geocode
+        GET    geo/reverse_geocode
 
-    Given a latitude and a longitude, searches for up to 20 places that can be used as a place_id when updating a status.
-
-    This request is an informative call and will deliver generalized results about geography.
-    */
+        Given a latitude and a longitude, searches for up to 20 places that can be used as a place_id when updating a status.
+        This request is an informative call and will deliver generalized results about geography.
+     **/
     public func getReverseGeocode(for coordinate: (lat: Double, long: Double), accuracy: String? = nil, granularity: String? = nil, maxResults: Int? = nil, callback: String? = nil, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "geo/reverse_geocode.json"
 
@@ -61,14 +60,12 @@ public extension Swifter {
     }
 
     /**
-    GET    geo/search
+        GET    geo/search
 
-    Search for places that can be attached to a statuses/update. Given a latitude and a longitude pair, an IP address, or a name, this request will return a list of all the valid places that can be used as the place_id when updating a status.
-
-    Conceptually, a query can be made from the user's location, retrieve a list of places, have the user validate the location he or she is at, and then send the ID of this location with a call to POST statuses/update.
-
-    This is the recommended method to use find places that can be attached to statuses/update. Unlike GET geo/reverse_geocode which provides raw data access, this endpoint can potentially re-order places with regards to the user who is authenticated. This approach is also preferred for interactive place matching with the user.
-    */
+        Search for places that can be attached to a statuses/update. Given a latitude and a longitude pair, an IP address, or a name, this request will return a list of all the valid places that can be used as the place_id when updating a status.
+        Conceptually, a query can be made from the user's location, retrieve a list of places, have the user validate the location he or she is at, and then send the ID of this location with a call to POST statuses/update.
+        This is the recommended method to use find places that can be attached to statuses/update. Unlike GET geo/reverse_geocode which provides raw data access, this endpoint can potentially re-order places with regards to the user who is authenticated. This approach is also preferred for interactive place matching with the user.
+     **/
     public func searchGeo(coordinate: (lat: Double, long: Double)? = nil, query: String? = nil, ipAddress: String? = nil, accuracy: String? = nil, granularity: String? = nil, maxResults: Int? = nil, containedWithin: String? = nil, attributeStreetAddress: String? = nil, callback: String? = nil, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         assert(coordinate != nil || query != nil || ipAddress != nil, "At least one of the following parameters must be provided to access this resource: coordinate, ipAddress, or query")
 
@@ -94,14 +91,12 @@ public extension Swifter {
     }
 
     /**
-    GET    geo/similar_places
+        GET    geo/similar_places
 
-    Locates places near the given coordinates which are similar in name.
-
-    Conceptually you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to POST geo/place to create a new one.
-
-    The token contained in the response is the token needed to be able to create a new place.
-    */
+        Locates places near the given coordinates which are similar in name.
+        Conceptually you would use this method to get a list of known places to choose from first. Then, if the desired place doesn't exist, make a request to POST geo/place to create a new one.
+        The token contained in the response is the token needed to be able to create a new place.
+     **/
     public func getSimilarPlaces(for coordinate: (lat: Double, long: Double), name: String, containedWithin: String? = nil, attributeStreetAddress: String? = nil, callback: String? = nil, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "geo/similar_places.json"
 

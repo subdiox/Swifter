@@ -28,13 +28,11 @@ import Foundation
 public extension Swifter {
 
     /**
-    GET    favorites/list
+        GET    favorites/list
 
-    Returns the 20 most recent Tweets favorited by the authenticating or specified user.
-
-    If you do not provide either a user_id or screen_name to this method, it will assume you are requesting on behalf of the authenticating user. Specify one or the other for best results.
-    */
-
+        Returns the 20 most recent Tweets favorited by the authenticating or specified user.
+        If you do not provide either a user_id or screen_name to this method, it will assume you are requesting on behalf of the authenticating user. Specify one or the other for best results.
+     **/
     public func getRecentlyFavoritedTweets(count: Int? = nil, sinceID: String? = nil, maxID: String? = nil, tweetMode: TweetMode = TweetMode.default, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
 
         let path = "favorites/list.json"
@@ -64,12 +62,11 @@ public extension Swifter {
     }
 
     /**
-    POST	favorites/destroy
-
-    Un-favorites the status specified in the ID parameter as the authenticating user. Returns the un-favorited status in the requested format when successful.
-
-    This process invoked by this method is asynchronous. The immediately returned status may not indicate the resultant favorited status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
-    */
+        POST	favorites/destroy
+     
+        Un-favorites the status specified in the ID parameter as the authenticating user. Returns the un-favorited status in the requested format when successful.
+        This process invoked by this method is asynchronous. The immediately returned status may not indicate the resultant favorited status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
+     **/
     public func unfavoriteTweet(forID id: String, includeEntities: Bool? = nil, tweetMode: TweetMode = TweetMode.default, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "favorites/destroy.json"
 
@@ -82,12 +79,11 @@ public extension Swifter {
     }
 
     /**
-    POST	favorites/create
+        POST	favorites/create
 
-    Favorites the status specified in the ID parameter as the authenticating user. Returns the favorite status when successful.
-
-    This process invoked by this method is asynchronous. The immediately returned status may not indicate the resultant favorited status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
-    */
+        Favorites the status specified in the ID parameter as the authenticating user. Returns the favorite status when successful.
+        This process invoked by this method is asynchronous. The immediately returned status may not indicate the resultant favorited status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
+     **/
     public func favoriteTweet(forID id: String, includeEntities: Bool? = nil, tweetMode: TweetMode = TweetMode.default, success: SuccessHandler? = nil, failure: HTTPRequest.FailureHandler? = nil) {
         let path = "favorites/create.json"
 
