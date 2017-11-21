@@ -71,7 +71,6 @@ extension String {
                 parameters.updateValue(value, forKey: key)
             }
         }
-        
         return parameters
     }
 }

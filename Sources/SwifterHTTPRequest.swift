@@ -84,11 +84,11 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
     var successHandler: SuccessHandler?
     var failureHandler: FailureHandler?
 
-    public init(url: URL, method: HTTPMethodType = .GET, parameters: Dictionary<String, Any> = [:]) {
+    public init(url: URL, method: HTTPMethodType = .GET, parameters: Dictionary<String, Any> = [:], encodeParameters: Bool = false) {
         self.url = url
         self.HTTPMethod = method
         self.parameters = parameters
-        self.encodeParameters = false
+        self.encodeParameters = encodeParameters
     }
 
     public init(request: URLRequest) {
@@ -100,7 +100,6 @@ public class HTTPRequest: NSObject, URLSessionDataDelegate {
     }
 
     public func start() {
-        
         
         if request == nil {
             self.request = URLRequest(url: self.url)

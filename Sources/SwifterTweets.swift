@@ -276,7 +276,7 @@ public extension Swifter {
 
     This method offers similar data to GET statuses/retweets/:id and replaces API v1's GET statuses/:id/retweeted_by/ids method.
     */
-    public func tweetRetweeters(forID id: String, cursor: String? = nil, stringifyIDs: Bool? = nil, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
+    public func getTweetRetweeterIDs(forID id: String, cursor: String? = nil, stringifyIDs: Bool? = nil, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
         let path = "statuses/retweeters/ids.json"
 
         var parameters = Dictionary<String, Any>()
@@ -289,6 +289,56 @@ public extension Swifter {
             }, failure: failure)
     }
 
+    /**
+        GET statuses/retweeted_by.json
+     
+        Returns a collection of users who retweeted the specified tweet.
+     **/
+    
+    public func getTweetRetweetedBy(forID id: String, cursor: String? = nil, includeEntities: Bool? = true, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
+        let path = "statuses/retweeted_by.json"
+        
+        var parameters = Dictionary<String, Any>()
+        parameters["id"] = id
+        parameters["cursor"] ??= cursor
+        parameters["include_entities"] ??= includeEntities
+        parameters["include_profile_interstitial_type"] ??= includeProfileInterstitialType
+        parameters["include_profile_location"] ??= includeProfileLocation
+        parameters["include_user_entities"] ??= includeUserEntities
+        parameters["include_user_hashtag_entities"] ??= includeUserHashtagEntities
+        parameters["include_user_mention_entities"] ??= includeUserMentionEntities
+        parameters["include_user_symbol_entities"] ??= includeUserSymbolEntities
+
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+            success?(json["users"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
+        }, failure: failure)
+    }
+    
+    /**
+     GET statuses/favorited_by.json
+     
+     Returns a collection of users who favorited the specified tweet.
+     **/
+    
+    public func getTweetFavoritedBy(forID id: String, cursor: String? = nil, includeEntities: Bool? = true, includeProfileInterstitialType: Bool? = true, includeProfileLocation: Bool? = true, includeUserEntities: Bool? = true, includeUserHashtagEntities: Bool? = true, includeUserMentionEntities: Bool? = true, includeUserSymbolEntities: Bool? = true, success: CursorSuccessHandler? = nil, failure: FailureHandler? = nil) {
+        let path = "statuses/favorited_by.json"
+        
+        var parameters = Dictionary<String, Any>()
+        parameters["id"] = id
+        parameters["cursor"] ??= cursor
+        parameters["include_entities"] ??= includeEntities
+        parameters["include_profile_interstitial_type"] ??= includeProfileInterstitialType
+        parameters["include_profile_location"] ??= includeProfileLocation
+        parameters["include_user_entities"] ??= includeUserEntities
+        parameters["include_user_hashtag_entities"] ??= includeUserHashtagEntities
+        parameters["include_user_mention_entities"] ??= includeUserMentionEntities
+        parameters["include_user_symbol_entities"] ??= includeUserSymbolEntities
+        
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+            success?(json["users"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
+        }, failure: failure)
+    }
+    
     /**
     GET statuses/lookup
 

@@ -37,20 +37,24 @@ extension Notification.Name {
 // MARK: - Twitter URL
 public enum TwitterURL {
     case api
+    case api2
     case upload
     case stream
     case userStream
     case siteStream
     case oauth
+    case caps
     
     var url: URL {
         switch self {
         case .api:          return URL(string: "https://api.twitter.com/1.1/")!
+        case .api2:         return URL(string: "https://api.twitter.com/2/")!
         case .upload:       return URL(string: "https://upload.twitter.com/1.1/")!
         case .stream:       return URL(string: "https://stream.twitter.com/1.1/")!
         case .userStream:   return URL(string: "https://userstream.twitter.com/1.1/")!
         case .siteStream:   return URL(string: "https://sitestream.twitter.com/1.1/")!
         case .oauth:        return URL(string: "https://api.twitter.com/")!
+        case .caps:         return URL(string: "https://caps.twitter.com/v2/")!
         }
     }
     
@@ -125,15 +129,14 @@ public class Swifter {
     // MARK: - JSON Requests
     
     @discardableResult
-    internal func jsonRequest(path: String, baseURL: TwitterURL, method: HTTPMethodType, parameters: Dictionary<String, Any>, uploadProgress: HTTPRequest.UploadProgressHandler? = nil, downloadProgress: JSONSuccessHandler? = nil, success: JSONSuccessHandler? = nil, failure: HTTPRequest.FailureHandler? = nil) -> HTTPRequest {
+    internal func jsonRequest(path: String, baseURL: TwitterURL, method: HTTPMethodType, parameters: Dictionary<String, Any>, encodeParameters: Bool = false, uploadProgress: HTTPRequest.UploadProgressHandler? = nil, downloadProgress: JSONSuccessHandler? = nil, success: JSONSuccessHandler? = nil, failure: HTTPRequest.FailureHandler? = nil) -> HTTPRequest {
         let jsonDownloadProgressHandler: HTTPRequest.DownloadProgressHandler = { [weak self] data, _, _, response in
             guard let `self` = self else { return }
             guard let _ = downloadProgress else { return }
             self.handleStreamProgress(data: data, response: response, handler: downloadProgress)
         }
-
+        
         let jsonSuccessHandler: HTTPRequest.SuccessHandler = { data, response in
-
             DispatchQueue.global(qos: .utility).async {
                 do {
                     let jsonResult = try JSON.parse(jsonData: data)
@@ -185,8 +188,8 @@ public class Swifter {
     }
 
     @discardableResult
-    internal func postJSON(path: String, baseURL: TwitterURL, parameters: Dictionary<String, Any>, uploadProgress: HTTPRequest.UploadProgressHandler? = nil, downloadProgress: JSONSuccessHandler? = nil, success: JSONSuccessHandler?, failure: HTTPRequest.FailureHandler?) -> HTTPRequest {
-        return self.jsonRequest(path: path, baseURL: baseURL, method: .POST, parameters: parameters, uploadProgress: uploadProgress, downloadProgress: downloadProgress, success: success, failure: failure)
+    internal func postJSON(path: String, baseURL: TwitterURL, parameters: Dictionary<String, Any>, encodeParameters: Bool = false, uploadProgress: HTTPRequest.UploadProgressHandler? = nil, downloadProgress: JSONSuccessHandler? = nil, success: JSONSuccessHandler?, failure: HTTPRequest.FailureHandler?) -> HTTPRequest {
+        return self.jsonRequest(path: path, baseURL: baseURL, method: .POST, parameters: parameters, encodeParameters: encodeParameters, uploadProgress: uploadProgress, downloadProgress: downloadProgress, success: success, failure: failure)
     }
     
 }

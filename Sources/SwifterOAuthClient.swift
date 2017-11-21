@@ -98,7 +98,7 @@ internal class OAuthClient: SwifterClientProtocol  {
         request.failureHandler = failure
         request.dataEncoding = self.dataEncoding
         request.encodeParameters = postData == nil
-
+        
         if let postData = postData {
             let fileName = postDataFileName ?? "media.jpg"
             request.add(multipartData: postData, parameterName: postDataKey!, mimeType: "application/octet-stream", fileName: fileName)
